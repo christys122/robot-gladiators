@@ -144,7 +144,20 @@ var startGame = function() {
 // function to end the entire game
 var endGame = function() {
   window.alert("The game has now ended. Let's see how you did!");
-
+  //check localStorage for high score, if its not ther use 0
+  var highScore = localStorage.getItem("highscore");
+  if (highScore === null) {
+    highScore = 0;
+  }
+// ifplayer has more money than high Score, player has new high score
+if (playerInfo.money > highScore) {
+  localStorage.setItem("highScore", playerInfo.money);
+  localStorage.setItem("name", playerInfo.name);
+  alert(playerInfo.name + " now has the high score of " + playerInfo.money + "!");  
+}
+else {
+  alert(playerInfo.name + " did not beat the hight score of " + highScore + ". Maybe next time!");
+}
   // if player is still alive, player wins!
   if (playerInfo.health > 0) {
     window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + '.');
@@ -170,7 +183,7 @@ var shop = function() {
   );
 
   // use switch case to carry out action
-  shopOptionPrompt = parseInt(shopOptionPrompt):
+  shopOptionPrompt = parseInt(shopOptionPrompt);
   switch (shopOptionPrompt) {
     case 1:
       playerInfo.refillHealth();
