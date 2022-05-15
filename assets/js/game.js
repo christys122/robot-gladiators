@@ -33,11 +33,26 @@ if (promptFight === "skip") {
   }
 }
 }
+//keep track of who goes first
+var isPlayerTurn = true;
+if (Math.random() > 0.5) {
+  isPlayerTurn = false;
+}
 var fight = function(enemy) {
+//keep track of who goes first
+var isPlayerTurn = true;
+
+//randomly change turn order
+if (Math.random() > 0.5) {
+  isPlayerTurn = false;
+}
+
   while (playerInfo.health > 0 && enemy.health > 0) {
-    if (fightOrSkip()) {
-      break;
-    }
+    if (isPlayerTurn) {
+      if (fightOrSkip()) {
+        break;
+      }
+  }
    
     // generate random damage value based on player's attack power
     var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
@@ -77,7 +92,10 @@ var fight = function(enemy) {
     } else {
       window.alert(playerInfo.name + ' still has ' + playerInfo.health + ' health left.');
     }
-  } // end of while loop
+   // end of while loop
+  //switch turn order for next round
+  isPlayerTurn =!isPlayerTurn;
+}
 }; // end of fight function
 
 // function to start a new game
